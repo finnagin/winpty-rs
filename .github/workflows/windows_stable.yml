@@ -3,8 +3,8 @@ name: Library tests
 on:
     push:
         branches:
-            - main
             - win-arm64
+            - main
     pull_request:
         branches:
             - main
