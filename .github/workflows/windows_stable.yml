@@ -9,8 +9,8 @@ on:
             - main
 jobs:
     windows:
-        name: Rust ${{ matrix.RUST_TOOLCHAIN }}
-        runs-on: windows-latest
+        name: Rust ${{ matrix.RUST_TOOLCHAIN }} ${{ matrix.OS }}
+        runs-on: ${{ matrix.OS }}
         env:
             RUST_TOOLCHAIN: ${{ matrix.RUST_TOOLCHAIN }}
             RUNNER_OS: "windows"
@@ -19,6 +19,10 @@ jobs:
             fail-fast: false
             matrix:
                 RUST_TOOLCHAIN: ["stable", "nightly",]
+                OS: [windows-latest, windows-11-arm]
+                include:
+                  - {OS: windows-latest, TARGET_ARCH: "x86_64-pc-windows-msvc"}
+                  - {OS: windows-11-arm, TARGET_ARCH: "aarch64-pc-windows-msvc"}
         steps:
             - name: Checkout branch
               uses: actions/checkout@v5
@@ -26,7 +30,7 @@ jobs:
               uses: actions-rs/toolchain@v1
               with:
                 toolchain: ${{ matrix.RUST_TOOLCHAIN }}
-                target: x86_64-pc-windows-msvc
+                target: ${{ matrix.TARGET_ARCH }}
                 override: true
                 components: rustfmt, clippy
             - uses: nuget/setup-nuget@v2
@@ -49,6 +53,7 @@ jobs:
                 miniforge-version: latest
                 activate-environment: test
                 # channels: conda-forge,defaults
+                architecture: 'x64'
                 python-version: '3.10'
             - name: Conda env info
               shell: bash -l {0}
