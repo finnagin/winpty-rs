@@ -78,15 +78,20 @@ jobs:
                 ref: get_current_directory_arm64
             - name: Build winpty
               if: ${{ matrix.OS == 'windows-11-arm' }}
-              shell: bash -l {0}
+              shell: pwsh
               run: |
-                ls
-                pwd
-                ./configure
-                make build/winpty-agent.exe
-                make build/winpty-debugserver.exe
-                make build/winpty.dll
-                make install
+                Get-ChildItem
+                ./ship/build-pty4j-libpty.bat
+                Get-ChildItem
+              # run: |
+              #   ls
+              #   pwd
+              #   "C:/Program Files/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvarsall.bat" arm64
+              #   ./configure
+              #   make build/winpty-agent.exe
+              #   make build/winpty-debugserver.exe
+              #   make build/winpty.dll
+              #   make install
             - name: Cargo lint
               if: ${{ matrix.RUST_TOOLCHAIN == 'stable' }}
               shell: bash -l {0}
