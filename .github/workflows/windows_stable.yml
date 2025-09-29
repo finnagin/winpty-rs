@@ -70,7 +70,7 @@ jobs:
                 ${{ runner.temp }}\msys2-arm64.exe in --confirm-command --accept-messages --root C:/msys64
                 C:\msys64\clangarm64.exe
                 C:\msys64\usr\bin\pacman.exe -Suy
-                C:\msys64\usr\bin\pacman.exe -S mingw-w64-clang-aarch64-clang mingw-w64-clang-aarch64-gcc
+                C:\msys64\usr\bin\pacman.exe --noconfirm -S mingw-w64-clang-aarch64-clang mingw-w64-clang-aarch64-gcc
             - if: ${{ matrix.OS == 'windows-11-arm' }}
               uses: actions/checkout@v5
               with:
