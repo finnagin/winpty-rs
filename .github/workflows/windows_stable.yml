@@ -60,16 +60,16 @@ jobs:
               shell: bash -l {0}
               run: conda env list
             - name: Install winpty
-              if: ${{ matrix.OS == windows-latest }}
+              if: ${{ matrix.OS == 'windows-latest' }}
               shell: bash -l {0}
               run: conda install -y winpty
-            - if: ${{ matrix.OS == windows-11-arm }}
+            - if: ${{ matrix.OS == 'windows-11-arm' }}
               uses: actions/checkout@v5
               with:
                 repository: JetBrains/winpty
                 ref: get_current_directory_arm64
             - name: Build winpty
-              if: ${{ matrix.OS == windows-11-arm }}
+              if: ${{ matrix.OS == 'windows-11-arm' }}
               shell: bash -l {0}
               run: |
                 cd winpty
