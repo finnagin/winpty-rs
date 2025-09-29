@@ -72,6 +72,7 @@ jobs:
               if: ${{ matrix.OS == 'windows-11-arm' }}
               shell: bash -l {0}
               run: |
+                ls
                 cd winpty
                 ./configure
                 make build/winpty-agent.exe
