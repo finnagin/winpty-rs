@@ -73,7 +73,7 @@ jobs:
               shell: bash -l {0}
               run: |
                 ls
-                cd winpty
+                pwd
                 ./configure
                 make build/winpty-agent.exe
                 make build/winpty-debugserver.exe
