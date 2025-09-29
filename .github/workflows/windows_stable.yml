@@ -76,8 +76,20 @@ jobs:
               with:
                 repository: JetBrains/winpty
                 ref: get_current_directory_arm64
-            - name: Build winpty
-              if: ${{ matrix.OS == 'windows-11-arm' }}
+            - if: ${{ matrix.OS == 'windows-11-arm' }}
+              uses: actions/setup-python@v5
+              id: py
+              with:
+                python-version: 3.11
+                allow-prereleases: true
+                architecture: 'arm64'
+            - if: ${{ matrix.OS == 'windows-11-arm' }}
+              name: Install dependencies
+              run: |
+                python --version
+                python -m pip install six
+            - if: ${{ matrix.OS == 'windows-11-arm' }}
+              name: Build winpty
               shell: pwsh
               run: |
                 Get-ChildItem
